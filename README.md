@@ -1,0 +1,1 @@
+# pre-entrega-automation-testing--Dalmiro-Martins-.
