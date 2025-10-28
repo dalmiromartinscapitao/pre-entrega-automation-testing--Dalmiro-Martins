@@ -6,38 +6,26 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.chrome.service import Service
 import time
 
-
 url = "https://www.saucedemo.com/"
-username ="standard_user"
-password ="password"
-
-# Crear opciones de Chrome
-chrome_options = Options()
-
-# Oculta los mensajes "DevTools listening" y otros logs internos
-chrome_options.add_experimental_option("excludeSwitches", ["enable-logging"])
-
-# Crear el driver usando ChromeDriver desde el PATH del sistema
-driver = webdriver.Chrome(options=chrome_options)
-
+username = "standard_user"
+password = "secret_sauce"
 
 def instala_driver():
-
-    #instala el driver
-    service = Service(ChromeDriverManager.install())
-    driver = webdriver.Chrome(service=service)
+    chrome_options = Options()
+    chrome_options.add_experimental_option("excludeSwitches", ["enable-logging"])
+    service = Service(ChromeDriverManager().install())
+    driver = webdriver.Chrome(service=service, options=chrome_options)
     time.sleep(5)
-    return(driver)
+    return driver
 
-def login( driver ):
-    # Ir a la página web
-    
+def login(driver):
     driver.get(url)
 
-    driver.find_element(By.ID, "user-name")
-    driver.send_keys(username)
+    input_user = driver.find_element(By.ID, "user-name")
+    input_user.send_keys(username)
 
-    driver.find_element(By.ID, "password")
-    driver.send_keys(password)
-    driver.send_keys(Keys.RETURN)
+    input_pass = driver.find_element(By.ID, "password")
+    input_pass.send_keys(password)
 
+    boton_login = driver.find_element(By.ID, "login-button")
+    boton_login.click()
